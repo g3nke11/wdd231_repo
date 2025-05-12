@@ -16,6 +16,16 @@ export async function getParkData() {
   return data.data[0];
 }
 
+export function getInfoLinks(data) {
+  const withUpdatedImages = parkInfoLinks.map((item, index) => {
+    item.image = data[index + 2].url;
+    return item;
+  });
+  return withUpdatedImages;
+}
+
+
+
 const park = {
   id: "F58C6D24-8D10-4573-9826-65D42B8B83AD",
   url: "https://www.nps.gov/yell/index.htm",
