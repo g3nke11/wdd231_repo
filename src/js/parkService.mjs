@@ -9,7 +9,7 @@ export async function getParkData() {
     }
   }
   let data = {}
-  const response = await fetch(baseUrl + "parks" + "?parkCode=yell", options);
+  const response = await fetch(baseUrl + "parks" + "?parkCode=glac", options);
   if (response.ok) {
     data = await response.json();
   } else throw new Error("response not ok");
