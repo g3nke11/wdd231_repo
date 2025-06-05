@@ -1,12 +1,11 @@
-function quoteList() {   
+async function quoteList() {   
     const list = document.querySelector('.quotes_list');
     list.innerHTML = '';
-    const quotesData = fetch('./quotes.json').then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch JSON: ' + response.statusText);
-        }
-        return response.json();
-    });
+    const response = fetch('./quotes.json')
+    if (!response.ok) {
+        throw new Error('Failed to fetch JSON: ' + response.statusText);
+    }
+    const quoteDate = await response.json();
     const books = quoteData[1];
     const allQuotes = [];
     books.forEach(book => {
