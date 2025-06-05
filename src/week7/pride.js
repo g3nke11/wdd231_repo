@@ -21,4 +21,4 @@ function quoteList() {
     localStorage.setItem('quotes', JSON.stringify(allQuotes));
 }
 
-document.querySelector('#load_quotes').addEventListener('click', quoteList());
+document.querySelector('button').addEventListener('click', quoteList());
