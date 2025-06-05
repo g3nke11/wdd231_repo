@@ -1,23 +1,37 @@
 async function quoteList() {   
     const list = document.querySelector('.quotes_list');
-    list.innerHTML = '';
-    const response = fetch('./quotes.json')
-    if (!response.ok) {
-        throw new Error('Failed to fetch JSON: ' + response.statusText);
-    }
-    const quoteDate = await response.json();
-    const books = quoteData[1];
-    const allQuotes = [];
-    books.forEach(book => {
-        const quotes = book.quotes;
-        quotes.forEach(quote => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${quote}`;
-            list.appendChild(listItem);
-            allQuotes.push(quote);
+    list.innerHTML = ''; // Clear the existing list
+
+    try {
+        // Fetch the JSON file
+        const response = await fetch('./quotes.json');
+        if (!response.ok) {
+            throw new Error('Failed to fetch JSON: ' + response.statusText);
+        }
+
+        const quotesData = await response.json(); // Parse JSON data
+        const books = quotesData.books; // Access the "books" array
+        const allQuotes = [];
+
+        // Iterate through books and quotes
+        books.forEach(book => {
+            const quotes = book.quotes;
+            quotes.forEach(quote => {
+                const listItem = document.createElement('li');
+                listItem.textContent = quote; // Add quote text
+                list.appendChild(listItem);
+
+                // Add the quote to the array
+                allQuotes.push(quote);
+            });
         });
-    });
-    localStorage.setItem('quotes', JSON.stringify(allQuotes));
+
+        // Store the array of quotes in localStorage
+        localStorage.setItem('quotes', JSON.stringify(allQuotes));
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
-document.querySelector('button').addEventListener('click', quoteList());
+// Attach event listener to the button
+document.querySelector('#load_quotes').addEventListener('click', quoteList);
