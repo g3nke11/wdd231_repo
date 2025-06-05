@@ -4,7 +4,7 @@ async function quoteList() {
 
     try {
         // Fetch the JSON file
-        const response = await fetch('quotes.json');
+        const response = await fetch('src\week7\quotes.json');
         if (!response.ok) {
             throw new Error('Failed to fetch JSON: ' + response.statusText);
         }
