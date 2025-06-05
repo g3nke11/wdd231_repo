@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+
+.content {
+  width: 80%;
+  height: 500px;
+  border: 1px solid;
+}
+
+.red {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  color: black;
+  transition: background-color 1.0s, color 1.0s;
+}
+
+.red:hover {
+    background-color: lavender;
+    color: black;
+}
+
+.yellow {
+  width: 100px;
+  height: 100px;
+  background-color: gold;
+  border-radius: 0 0 50% 50%;
+}
+
+@keyframes rock {
+    0%,
+    50%,
+    100% {
+        transition: rotate(0deg);
+    }
+
+    25% {
+        transition: rotate(-90deg);
+    }
+
+    75% {
+        transition: rotate(90deg);
+    }
+}
+
+.green {
+  width: 100px;
+  height: 40px;
+  background-color: green;
+  border: 0;
+}
+.blue {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+}
