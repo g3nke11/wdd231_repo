@@ -12,7 +12,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "src/index.html"),
-        conditions: resolve(__dirname, "src/conditions.html")
+        conditions: resolve(__dirname, "src/conditions.html"),
+        pride: resolve(__dirname, "src/week7/pride.html")
       }
     }
   }
