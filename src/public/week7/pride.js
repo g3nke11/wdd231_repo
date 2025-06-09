@@ -36,16 +36,12 @@
 // // Attach event listener to the button
 // document.querySelector('#load_quotes').addEventListener('click', quoteList);
 
-
-// Check if quotes are in localStorage
+// Key for localStorage
 const quotesKey = "pride-prejudice";
-const storedQuotes = localStorage.getItem(quotesKey);
 
-const list = document.querySelector(".quotes_list");
-const button = document.getElementById("load_quotes");
-
-// Function to update the list
+// Function to update the list in the DOM
 function updateList(quotes) {
+  const list = document.querySelector(".quotes_list");
   list.innerHTML = ""; // Clear existing list
   quotes.forEach(quote => {
     const listItem = document.createElement("li");
@@ -54,32 +50,48 @@ function updateList(quotes) {
   });
 }
 
-// Load from localStorage or fetch from JSON
-if (storedQuotes) {
-  const quotes = JSON.parse(storedQuotes);
-  updateList(quotes);
-  button.style.display = "none"; // Hide button if quotes exist
-} else {
-  button.addEventListener("click", async () => {
-    try {
-      const response = await fetch("./quotes.json");
-      if (!response.ok) {
-        throw new Error("Failed to load quotes.json");
-      }
-      const data = await response.json();
-      const books = data.books;
-
-      // Find "Pride and Prejudice" quotes
-      const prideQuotes = books.find(book => book.title === "Pride and Prejudice")?.quotes || [];
-
-      // Update list and store in localStorage
-      updateList(prideQuotes);
-      localStorage.setItem(quotesKey, JSON.stringify(prideQuotes));
-
-      // Hide the button after loading quotes
-      button.style.display = "none";
-    } catch (error) {
-      console.error("Error fetching quotes:", error);
+// Function to load quotes from JSON and update the list
+async function loadQuotes() {
+  try {
+    const response = await fetch("src\public\week7\quotes.json");
+    if (!response.ok) {
+      throw new Error("Failed to load quotes.json");
     }
-  });
+    const data = await response.json();
+    const books = data.books;
+
+    // Find "Pride and Prejudice" quotes
+    const prideQuotes = books.find(book => book.title === "Pride and Prejudice")?.quotes || [];
+
+    // Update list and store in localStorage
+    updateList(prideQuotes);
+    localStorage.setItem(quotesKey, JSON.stringify(prideQuotes));
+
+    // Hide the button after loading quotes
+    const button = document.getElementById("load_quotes");
+    button.style.display = "none";
+  } catch (error) {
+    console.error("Error fetching quotes:", error);
+  }
 }
+
+// Function to initialize the page
+function initialize() {
+  const button = document.getElementById("load_quotes");
+  const storedQuotes = localStorage.getItem(quotesKey);
+
+  if (storedQuotes) {
+    // Load quotes from localStorage
+    const quotes = JSON.parse(storedQuotes);
+    updateList(quotes);
+
+    // Hide the button as quotes are already loaded
+    button.style.display = "none";
+  } else {
+    // Set up event listener for the button
+    button.addEventListener("click", loadQuotes);
+  }
+}
+
+// Initialize the page when DOM content is loaded
+document.addEventListener("DOMContentLoaded", initialize);
