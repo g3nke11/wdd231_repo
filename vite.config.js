@@ -15,7 +15,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/index.html"),
         conditions: resolve(__dirname, "src/conditions.html"),
-        pride: resolve(__dirname, "src/public/week7/pride.html")
+        // pride: resolve(__dirname, "src/public/week7/pride.html")
       }
     }
   }
