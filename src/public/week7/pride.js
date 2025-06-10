@@ -16,7 +16,9 @@ function checkForQuotes() {
         console.log("Loaded quotes from localStorage");
         document.getElementById("load_quotes").classList.add("hide");
     }
-}
+} 
+
+// FOO
 
 async function loadQuotes() {
     try {
